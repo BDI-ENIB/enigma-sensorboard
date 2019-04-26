@@ -12,7 +12,7 @@ void loop() {
       Serial.println("SensorBoard;");
     }
     else if (message.equals("dsensors")) {
-      for (int i = 2; i <= 10; i++) {
+      for (int i = 0; i < DIGITAL_SENSORS_LEN; i++) {
         Serial.print(int(digitalRead(i)));
       }
       Serial.println(";");
