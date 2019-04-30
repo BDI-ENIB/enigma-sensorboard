@@ -1,5 +1,8 @@
 #include "pinout.h"
 
+bool send_events = FALSE;
+bool last_value[INPUTS_LEN] = {0};
+
 void setup() {
 	Serial.begin(9600);
 
@@ -56,6 +59,30 @@ void outputs(String &values) {
 	Serial.println("done;");
 }
 
+/**
+ * Activate watching
+ * 
+ * Call: activate;
+ * Returns: done;
+ */
+void activate() {
+	send_events = TRUE;
+	for (int i = 0; i < INPUTS_LEN; ++i)
+	{
+		last_value[i] = digitalRead(INPUTS[i]);
+	}
+}
+
+/**
+ * Dectivate watching
+ * 
+ * Call: deactivate;
+ * Returns: done;
+ */
+void deactivate() {
+	send_events = FALSE;
+}
+
 void loop() {
 	if (Serial.available() > 0) {
 		// read the incoming byte:
@@ -69,6 +96,12 @@ void loop() {
 		else if (message.equals("dsensors")) {
 			dsensors();
 		}
+		else if (message.equals("activate")) {
+			activate();
+		}
+		else if (message.equals("deactivate")) {
+			deactivate();
+		}
 		else if (message.startsWith("setouts")) {
 			message.remove(0, 7);
 			outputs(message);
@@ -76,6 +109,20 @@ void loop() {
 		else if (message.startsWith("sensor")) {
 			message.remove(0, 6);
 			read(INPUTS[message.toInt()]);
+		}
+	}
+
+	if (send_events) {
+		for (int i = 0; i < INPUTS_LEN; ++i)
+		{
+			bool val = digitalRead(INPUTS[i]);
+			if (val != last_value[i]) {
+				Serial.print(i);
+				Serial.print(",");
+				Serial.print(int(val));
+				Serial.print(";");
+				last_value[i] = val;
+			}
 		}
 	}
 }

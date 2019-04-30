@@ -64,3 +64,19 @@ Example:
 > setouts01000110;
 < done;
 ```
+
+### (De)Activate watching
+
+Watching can be enabled (and disabled) on the board. See [Watching](#watching) for more info.
+
+Commands: `activate` and `deactivate`  
+Answer: `done`
+
+## Watching
+
+Watching can be enabled (and disabled) on the board.
+See [(De)Activate watching](#deactivate-watching) for more info on activating and deactivating it.
+
+When watching is enabled, the board will automatically send values if a sensor value changes.
+The send data is in the form `sensor#,value` with `sensor#` the number of the sensor
+between 0 and 7 and `value` either `0` or `1` depending on the sensor new value.
