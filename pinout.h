@@ -1,6 +1,8 @@
 #ifndef PINOUT_H
 #define PINOUT_H 1
 
+#include <Arduino.h>
+
 #define IN0  2
 #define OUT0 3
 
