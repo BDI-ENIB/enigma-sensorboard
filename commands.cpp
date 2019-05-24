@@ -16,7 +16,7 @@ void whois() {
 
 /**
  * Call: dsensors;
- * Returns: numeric value of each sensor, in the order of INPUTS ex: 00100100;
+ * Returns: numeric value of each sensor, in the order of INPUTS ex: 001100100;
  */
 void dsensors() {
 	for (int i = 0; i < INPUTS_LEN; i++) {
@@ -36,7 +36,7 @@ void read(int sensor) {
 }
 
 /**
- * Call: setoutsXXXXXXXX;
+ * Call: setoutsXXXXXXXXX;
  * 		X: numeric value of the output
  * Returns: done;
  */

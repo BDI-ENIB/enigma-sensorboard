@@ -2,7 +2,7 @@
 #include "commands.h"
 
 void setup() {
-	Serial.begin(9600);
+	Serial.begin(2000000);
 
 	for (int i = 0; i < INPUTS_LEN; i++)
 		pinMode(INPUTS[i], INPUT);
@@ -37,7 +37,7 @@ void loop() {
 		}
 		else if (message.startsWith("sensor")) {
 			message.remove(0, 6);
-			enigma::serial::read(INPUTS[message.toInt()]);
+			enigma::serial::read(INPUTS[message.toInt()-1]);
 		}
 	}
 
