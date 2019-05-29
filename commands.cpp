@@ -20,7 +20,7 @@ void dsensors() {
 }
 
 void read(int sensor) {
-	Serial.print(i);
+	Serial.print(sensor);
 	Serial.print(",");
 	Serial.print(int(digitalRead(sensor)));
 	Serial.print(";");
