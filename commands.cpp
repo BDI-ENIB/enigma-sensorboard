@@ -6,40 +6,26 @@ namespace serial {
 bool send_events=false;
 bool last_value[INPUTS_LEN] = {0};
 
-/**
- * Call : whois;
- * Returns: name;
- */
 void whois() {
 	Serial.print("SensorBoard;");
 }
 
-/**
- * Call: dsensors;
- * Returns: numeric value of each sensor, in the order of INPUTS ex: 001100100;
- */
 void dsensors() {
 	for (int i = 0; i < INPUTS_LEN; i++) {
+		Serial.print(i);
+		Serial.print(",");
 		Serial.print(int(digitalRead(INPUTS[i])));
+		Serial.print(";");
 	}
-	Serial.print(";");
 }
 
-/**
- * Call: sensorX; with X the sensor number
- * Returns: X;
- *		X: The sensor value
- */
 void read(int sensor) {
+	Serial.print(i);
+	Serial.print(",");
 	Serial.print(int(digitalRead(sensor)));
 	Serial.print(";");
 }
 
-/**
- * Call: setoutsXXXXXXXXX;
- * 		X: numeric value of the output
- * Returns: done;
- */
 void outputs(String &values) {
 	for (int i = 0; i < OUTPUTS_LEN; ++i) {
 		if (values[i] == '1'){
@@ -51,12 +37,6 @@ void outputs(String &values) {
 	Serial.print("done;");
 }
 
-/**
- * Activate watching
- * 
- * Call: activate;
- * Returns: done;
- */
 void activate() {
 	send_events = true;
 	for (int i = 0; i < INPUTS_LEN; ++i)
@@ -65,12 +45,6 @@ void activate() {
 	}
 }
 
-/**
- * Dectivate watching
- * 
- * Call: deactivate;
- * Returns: done;
- */
 void deactivate() {
 	send_events = false;
 }
@@ -90,5 +64,6 @@ void send_events_if_wanted() {
 		}
 	}
 }
+
 } // namespace enigma
 } // namespace serial
