@@ -11,7 +11,7 @@ bool last_value[INPUTS_LEN] = {0};
  * Returns: name;
  */
 void whois() {
-	Serial.println("SensorBoard;");
+	Serial.print("SensorBoard;");
 }
 
 /**
@@ -22,7 +22,7 @@ void dsensors() {
 	for (int i = 0; i < INPUTS_LEN; i++) {
 		Serial.print(int(digitalRead(INPUTS[i])));
 	}
-	Serial.println(";");
+	Serial.print(";");
 }
 
 /**
@@ -32,7 +32,7 @@ void dsensors() {
  */
 void read(int sensor) {
 	Serial.print(int(digitalRead(sensor)));
-	Serial.println(";");
+	Serial.print(";");
 }
 
 /**
@@ -48,7 +48,7 @@ void outputs(String &values) {
 			digitalWrite(OUTPUTS[i], LOW);
 		}
 	}
-	Serial.println("done;");
+	Serial.print("done;");
 }
 
 /**
