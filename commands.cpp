@@ -7,40 +7,26 @@ bool send_events=false;
 bool last_value[INPUTS_LEN] = {0};
 bool value_buffer[INPUTS_LEN][SAMPLE_NB] = {0};
 
-/**
- * Call : whois;
- * Returns: name;
- */
 void whois() {
-	Serial.println("SensorBoard;");
+	Serial.print("SensorBoard;");
 }
 
-/**
- * Call: dsensors;
- * Returns: numeric value of each sensor, in the order of INPUTS ex: 001100100;
- */
 void dsensors() {
 	for (int i = 0; i < INPUTS_LEN; i++) {
+		Serial.print(i);
+		Serial.print(",");
 		Serial.print(value_buffer[i][SAMPLE_NB-1]);
+		Serial.print(";");
 	}
-	Serial.println(";");
 }
 
-/**
- * Call: sensorX; with X the sensor number
- * Returns: X;
- *		X: The sensor value
- */
 void read(int sensor) {
+	Serial.print(sensor);
+	Serial.print(",");
 	Serial.print(value_buffer[sensor][SAMPLE_NB-1]);
-	Serial.println(";");
+	Serial.print(";");
 }
 
-/**
- * Call: setoutsXXXXXXXXX;
- * 		X: numeric value of the output
- * Returns: done;
- */
 void outputs(String &values) {
 	for (int i = 0; i < OUTPUTS_LEN; ++i) {
 		if (values[i] == '1'){
@@ -49,15 +35,9 @@ void outputs(String &values) {
 			digitalWrite(OUTPUTS[i], LOW);
 		}
 	}
-	Serial.println("done;");
+	Serial.print("done;");
 }
 
-/**
- * Activate watching
- * 
- * Call: activate;
- * Returns: done;
- */
 void activate() {
 	send_events = true;
 	for (int i = 0; i < INPUTS_LEN; ++i)
@@ -66,12 +46,6 @@ void activate() {
 	}
 }
 
-/**
- * Dectivate watching
- * 
- * Call: deactivate;
- * Returns: done;
- */
 void deactivate() {
 	send_events = false;
 }

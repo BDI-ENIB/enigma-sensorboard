@@ -18,14 +18,14 @@ void whois();
 
 /**
  * Call: dsensors;
- * Returns: numeric value of each sensor, in the order of INPUTS ex: 001010100;
+ * Returns: numeric value of each sensor, the same way as if each sensor was updated, see the Watching doc
  */
 void dsensors();
 
 /**
  * Call: sensorX; with X the sensor number
- * Returns: X;
- *		X: The sensor value
+ * Returns: X,Y;
+ *		Y: The sensor value
  */
 void read(int sensor);
 
