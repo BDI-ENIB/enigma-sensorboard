@@ -44,10 +44,12 @@ void activate() {
 	{
 		last_value[i] = value_buffer[i][SAMPLE_NB-1];
 	}
+	Serial.print("done;");
 }
 
 void deactivate() {
 	send_events = false;
+	Serial.print("done;");
 }
 
 /**
