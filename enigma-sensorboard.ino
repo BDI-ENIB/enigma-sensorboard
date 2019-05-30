@@ -41,5 +41,6 @@ void loop() {
 		}
 	}
 
+	enigma::serial::update();
 	enigma::serial::send_events_if_wanted();
 }

@@ -5,6 +5,8 @@
 
 #include "pinout.h"
 
+#define SAMPLE_NB 40
+
 namespace enigma {
 namespace serial {
 
@@ -54,6 +56,11 @@ void deactivate();
  * Send the occured events
  */
 void send_events_if_wanted();
+
+/**
+ * Update sensors state, used for histeresis cycle
+ */
+void update();
 
 } // namespace enigma
 } // namespace serial

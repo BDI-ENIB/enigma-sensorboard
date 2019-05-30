@@ -5,6 +5,7 @@ namespace serial {
 
 bool send_events=false;
 bool last_value[INPUTS_LEN] = {0};
+bool value_buffer[INPUTS_LEN][SAMPLE_NB] = {0};
 
 /**
  * Call : whois;
@@ -20,7 +21,7 @@ void whois() {
  */
 void dsensors() {
 	for (int i = 0; i < INPUTS_LEN; i++) {
-		Serial.print(int(digitalRead(INPUTS[i])));
+		Serial.print(value_buffer[i][SAMPLE_NB-1]);
 	}
 	Serial.println(";");
 }
@@ -31,7 +32,7 @@ void dsensors() {
  *		X: The sensor value
  */
 void read(int sensor) {
-	Serial.print(int(digitalRead(sensor)));
+	Serial.print(value_buffer[sensor][SAMPLE_NB-1]);
 	Serial.println(";");
 }
 
@@ -61,7 +62,7 @@ void activate() {
 	send_events = true;
 	for (int i = 0; i < INPUTS_LEN; ++i)
 	{
-		last_value[i] = digitalRead(INPUTS[i]);
+		last_value[i] = value_buffer[i][SAMPLE_NB-1];
 	}
 }
 
@@ -75,11 +76,14 @@ void deactivate() {
 	send_events = false;
 }
 
+/**
+ * Send the occured events
+ */
 void send_events_if_wanted() {
 	if (send_events) {
 		for (int i = 0; i < INPUTS_LEN; ++i)
 		{
-			bool val = digitalRead(INPUTS[i]);
+			bool val = value_buffer[i][SAMPLE_NB-1];
 			if (val != last_value[i]) {
 				Serial.print(i);
 				Serial.print(",");
@@ -90,5 +94,28 @@ void send_events_if_wanted() {
 		}
 	}
 }
+
+/**
+ * Update sensors state, used for histeresis cycle
+ */
+void update() {
+	for (int i = 0; i < INPUTS_LEN; i++) {
+		const bool val = digitalRead(INPUTS[i]);
+		if (val) {
+			for (int j = 0; j < SAMPLE_NB; j++) {
+				value_buffer[i][j] = 1;
+			}
+			bool old = value_buffer[i][1];
+		} else {
+			for (int j = SAMPLE_NB-1; j > 0; j--) {
+				value_buffer[i][j] = value_buffer[i][j-1];
+			}
+			value_buffer[i][0] = 0;
+		}
+	}
+	delay(20);
+}
+
+
 } // namespace enigma
 } // namespace serial
