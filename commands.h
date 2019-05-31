@@ -18,7 +18,7 @@ void whois();
 
 /**
  * Call: dsensors;
- * Returns: numeric value of each sensor, the same way as if each sensor was updated, see the Watching doc
+ * Returns: sending; and then numeric value of each sensor, the same way as if each sensor was updated, see the Watching doc
  */
 void dsensors();
 

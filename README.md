@@ -28,12 +28,13 @@ Example:
 Read all sensors and send their values.
 
 Command: `dsensors`  
-Answer: `Y,X;`, where `X` is either `0` or `1` depending on the sensor `Y` value. This is sent one time for each sensor.
+Answer: First answer is `sending;` then `Y,X;`, where `X` is either `0` or `1` depending on the sensor `Y` value.
+This is sent one time for each sensor.
 
 Example:
 ```
 > dsensors;
-< 0,1;1,0;2,0;3,0;4,0;5,0;6,1;7,1;8,1;
+< sending;0,1;1,0;2,0;3,0;4,0;5,0;6,1;7,1;8,1;
 ```
 
 ### Getting only one value

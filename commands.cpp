@@ -12,6 +12,7 @@ void whois() {
 }
 
 void dsensors() {
+	Serial.print("sending;");
 	for (int i = 0; i < INPUTS_LEN; i++) {
 		Serial.print(i);
 		Serial.print(",");
@@ -81,7 +82,6 @@ void update() {
 			for (int j = 0; j < SAMPLE_NB; j++) {
 				value_buffer[i][j] = 1;
 			}
-			bool old = value_buffer[i][1];
 		} else {
 			for (int j = SAMPLE_NB-1; j > 0; j--) {
 				value_buffer[i][j] = value_buffer[i][j-1];
